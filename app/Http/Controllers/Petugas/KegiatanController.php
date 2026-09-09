@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Helpers\LogHelper;
 
 class KegiatanController extends Controller
 {
@@ -58,14 +59,14 @@ class KegiatanController extends Controller
 
         $kegiatan = DB::transaction(function () use ($request) {
             $kegiatan = Kegiatan::create([
-        'nama_kegiatan' => $request->nama_kegiatan,
+                'nama_kegiatan'    => $request->nama_kegiatan,
                 'lokasi'           => $request->lokasi,
                 'tanggal_kegiatan' => $request->tanggal_kegiatan,
                 'waktu_mulai'      => $request->waktu_mulai,
                 'pimpinan_id'      => $request->pimpinan_id,
                 'deskripsi'        => $request->deskripsi,
                 'created_by'       => Auth::id(),
-            ]); 
+            ]);
 
             FolderDokumentasi::create([
                 'kegiatan_id' => $kegiatan->id,
@@ -78,10 +79,17 @@ class KegiatanController extends Controller
             return $kegiatan;
         });
 
+        // REKAM LOG AKTIVITAS: MEMBUAT KEGIATAN
+        LogHelper::record(
+            'upload',
+            null,
+            'Membuat kegiatan liputan baru: ' . $kegiatan->nama_kegiatan . ' di ' . $kegiatan->lokasi
+        );
+
         return redirect()
-        ->route('petugas.folder.show', $kegiatan->id)
-        ->with('success', 'Kegiatan berhasil dibuat.');
-}
+            ->route('petugas.folder.show', $kegiatan->id)
+            ->with('success', 'Kegiatan berhasil dibuat.');
+    }
 
     /**
      * Detail kegiatan.
@@ -159,7 +167,7 @@ class KegiatanController extends Controller
 
             $path = $file->store('dokumentasi/' . $kegiatan->id, 'public');
 
-            Dokumentasi::create([
+            $doc = Dokumentasi::create([
                 'folder_id'      => $folder->id,
                 'uploaded_by'    => Auth::id(),
                 'tipe_file'      => $tipeFile,
@@ -169,6 +177,13 @@ class KegiatanController extends Controller
                 'status_progres' => 'pending',
                 'uploaded_at'    => now(),
             ]);
+
+            // REKAM LOG AKTIVITAS: UPLOAD DOKUMENTASI
+            LogHelper::record(
+                'upload',
+                $doc->id,
+                'Mengunggah file ' . $file->getClientOriginalName() . ' pada kegiatan ' . $kegiatan->nama_kegiatan
+            );
         }
 
         $folder->update([
@@ -209,7 +224,9 @@ class KegiatanController extends Controller
         $kegiatan = Kegiatan::where('created_by', Auth::id())
             ->findOrFail($id);
 
-        // Update kegiatan (gunakan data lama jika input opsional tidak dikirim saat rename inline)
+        $namaLama = $kegiatan->nama_kegiatan;
+
+        // Update kegiatan
         $kegiatan->update([
             'nama_kegiatan'    => $request->nama_kegiatan,
             'lokasi'           => $request->lokasi ?? $kegiatan->lokasi,
@@ -227,6 +244,13 @@ class KegiatanController extends Controller
             ]);
         }
 
+        // REKAM LOG AKTIVITAS: UPDATE KEGIATAN
+        LogHelper::record(
+            'edit_upload',
+            null,
+            'Mengubah data kegiatan dari "' . $namaLama . '" menjadi "' . $request->nama_kegiatan . '"'
+        );
+
         return redirect()->back()->with('success', 'Nama kegiatan berhasil diperbarui.');
     }
 
@@ -238,6 +262,8 @@ class KegiatanController extends Controller
         $kegiatan = Kegiatan::where('created_by', Auth::id())
             ->with('folder.dokumentasi')
             ->findOrFail($id);
+
+        $namaKegiatan = $kegiatan->nama_kegiatan;
 
         if ($kegiatan->folder) {
             foreach ($kegiatan->folder->dokumentasi as $doc) {
@@ -251,6 +277,13 @@ class KegiatanController extends Controller
         }
 
         $kegiatan->delete();
+
+        // REKAM LOG AKTIVITAS: HAPUS KEGIATAN
+        LogHelper::record(
+            'archive',
+            null,
+            'Menghapus kegiatan liputan "' . $namaKegiatan . '" beserta seluruh dokumentasinya'
+        );
 
         return redirect()->back()->with('success', 'Kegiatan beserta folder dan file berhasil dihapus seluruhnya.');
     }

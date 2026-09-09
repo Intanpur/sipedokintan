@@ -40,16 +40,26 @@ class DashboardController extends Controller
                 ->count();
         }
 
-        // 3. TABEL MONITORING KEGIATAN TERBARU
-        $kegiatanTerbaru = Kegiatan::with(['createdBy', 'folder'])
-            ->latest()
-            ->take(5)
-            ->get();
+       
+// 3. TABEL MONITORING KEGIATAN TERBARU
+$kegiatanTerbaru = Kegiatan::with(['folder.user', 'createdBy'])
+    ->withCount('folder')
+    ->latest()
+    ->take(5)
+    ->get();
 
-        // 4. WIDGET FOLDER TERBARU
-        $folderTerbaru = FolderDokumentasi::latest()
-            ->take(5)
-            ->get();
+       // 4. WIDGET FOLDER TERBARU (Hitung jumlah foto dan video per folder)
+$folderTerbaru = FolderDokumentasi::withCount([
+    'dokumentasi as foto_count' => function ($query) {
+        $query->where('tipe_file', 'foto');
+    },
+    'dokumentasi as video_count' => function ($query) {
+        $query->where('tipe_file', 'video');
+    }
+])
+->latest()
+->take(5)
+->get();
 
         // 5. WIDGET AKTIVITAS HARI INI
         $folderHariIni          = FolderDokumentasi::whereDate('created_at', $today)->count();

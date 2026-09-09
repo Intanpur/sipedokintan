@@ -49,7 +49,7 @@
                 <div>
                     <h4 class="fw-extrabold mb-1 tracking-tight text-white" style="font-weight: 800;">Form Perubahan Akun Petugas</h4>
                     <p class="text-emerald-50 opacity-90 small mb-0" style="font-size: 0.92rem;">
-                        Perbarui informasi profil, username login, atau hak akses role dari petugas <strong class="text-amber-200" style="color: #fef08a;">"{{ $petugas->nama }}"</strong>.
+                        Perbarui informasi profil, username login, kontak WhatsApp, atau hak akses role dari petugas <strong class="text-amber-200" style="color: #fef08a;">"{{ $petugas->nama }}"</strong>.
                     </p>
                 </div>
             </div>
@@ -126,6 +126,28 @@
                         </div>
                     </div>
 
+                    <!-- Nomor Telepon / WhatsApp (DITAMBAHKAN) -->
+                    <div class="col-12 col-md-6">
+                        <label for="no_hp" class="form-label fw-bold text-teal-900 small mb-1" style="color: #0f766e;">
+                            Nomor Telepon / WhatsApp <span class="text-muted fw-normal">(Opsional)</span>
+                        </label>
+                        <div class="input-group rounded-3 overflow-hidden border border-teal-200 custom-input-group focus-within-teal">
+                            <span class="input-group-text bg-teal-50 border-0 ps-3 text-teal-700" style="background-color: #f0fdf4; color: #0d9488;">
+                                <i class="bi bi-telephone-fill fs-5"></i>
+                            </span>
+                            <input type="text" 
+                                   name="no_hp" 
+                                   id="no_hp" 
+                                   class="form-control border-0 py-2.5 text-dark shadow-none @error('no_hp') is-invalid @enderror" 
+                                   placeholder="Contoh: 081234567890" 
+                                   value="{{ old('no_hp', $petugas->no_hp) }}">
+                        </div>
+                        @error('no_hp')
+                            <div class="text-danger small mt-1 font-semibold"><i class="bi bi-exclamation-circle me-1"></i>{{ $message }}</div>
+                        @enderror
+                        <div class="form-text text-muted small">Nomor WhatsApp untuk kontak koordinasi peliputan.</div>
+                    </div>
+
                     <!-- Password (Opsional saat Edit) -->
                     <div class="col-12 col-md-6">
                         <label for="password" class="form-label fw-bold text-teal-900 small mb-1" style="color: #0f766e;">
@@ -183,6 +205,29 @@
                                 <i class="bi bi-person-badge-fill me-1"></i> Petugas
                             </span>
                         </div>
+                    </div>
+
+                    <!-- Status Akun (DITAMBAHKAN) -->
+                    <div class="col-12 col-md-6">
+                        <label for="is_active" class="form-label fw-bold text-teal-900 small mb-1" style="color: #0f766e;">
+                            Status Pengaktifan Akun <span class="text-danger">*</span>
+                        </label>
+                        <div class="input-group rounded-3 overflow-hidden border border-teal-200 custom-input-group focus-within-teal">
+                            <span class="input-group-text bg-teal-50 border-0 ps-3 text-teal-700" style="background-color: #f0fdf4; color: #0d9488;">
+                                <i class="bi bi-toggle-on fs-5"></i>
+                            </span>
+                            @php
+                                $selectedActive = old('is_active', $petugas->is_active ?? '1');
+                            @endphp
+                            <select name="is_active" id="is_active" class="form-select border-0 py-2.5 text-dark shadow-none @error('is_active') is-invalid @enderror" required>
+                                <option value="1" {{ $selectedActive == '1' ? 'selected' : '' }}>Aktif (Bisa Login)</option>
+                                <option value="0" {{ $selectedActive == '0' ? 'selected' : '' }}>Non-Aktif (Dibekukan)</option>
+                            </select>
+                        </div>
+                        @error('is_active')
+                            <div class="text-danger small mt-1 font-semibold"><i class="bi bi-exclamation-circle me-1"></i>{{ $message }}</div>
+                        @enderror
+                        <div class="form-text text-muted small">Status akses akun ke dalam aplikasi SIPEDOK.</div>
                     </div>
 
                 </div>
@@ -299,5 +344,4 @@
         }
     });
 </script>
-
 @endsection

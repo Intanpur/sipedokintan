@@ -12,17 +12,18 @@
     <!-- GOOGLE FONTS -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="{{ asset('css/responsive-admin.css') }}">
+
     <style>
         :root {
-            /* Palette Modern Hijau Toska */
-            --toska-dark: #0f766e;       /* Toska Gelap Elegant */
-            --toska-primary: #0d9488;    /* Toska Utama */
-            --toska-light: #14b8a6;      /* Toska Terang */
-            --toska-subtle: #ccfbf1;     /* Soft Toska Accent */
+            --toska-dark: #0f766e;
+            --toska-primary: #0d9488;
+            --toska-light: #14b8a6;
+            --toska-subtle: #ccfbf1;
             
-            --body-bg: #f8fafc;          /* Abu-abu Sangat Soft Bersih */
+            --body-bg: #f8fafc;
             --white: #ffffff;
-            --text-dark: #0f172a;        /* Teks Slate Gelap Jelas */
+            --text-dark: #0f172a;
             --text-muted: #64748b;
             --shadow: 0 10px 25px rgba(13, 148, 136, 0.08);
         }
@@ -38,14 +39,15 @@
             background: var(--body-bg);
             color: var(--text-dark);
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        a {
-            text-decoration: none;
-        }
+        a { text-decoration: none; }
 
         /**********************
-        NAVBAR - GRADIENT HIJAU TOSKA SEGAR (TANPA WARNA HITAM)
+        NAVBAR - GRADIENT HIJAU TOSKA
         **********************/
         .navbar {
             background: linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #14b8a6 100%) !important;
@@ -63,9 +65,7 @@
             color: var(--white) !important;
         }
 
-        .navbar-brand span {
-            color: #fef08a; /* Aksen Kuning Soft untuk DOK */
-        }
+        .navbar-brand span { color: #fef08a; }
 
         .logo {
             width: 42px;
@@ -78,7 +78,6 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
         }
 
-        /* Nav Links Styling */
         .nav-link {
             color: rgba(255, 255, 255, 0.9) !important;
             font-size: 14px;
@@ -96,7 +95,6 @@
             color: var(--white) !important;
         }
 
-        /* Menu Aktif Putih Kontras */
         .nav-link.active {
             background: var(--white) !important;
             color: var(--toska-dark) !important;
@@ -104,28 +102,26 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        .navbar-toggler {
-            border: none;
-            box-shadow: none !important;
-        }
-
-        .navbar-toggler i {
-            color: var(--white);
-            font-size: 26px;
-        }
-
         /**********************
-        USER PROFILE & BUTTONS
+        USER PROFILE DROPDOWN
         **********************/
-        .user-box {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        .user-dropdown-btn {
             background: rgba(255, 255, 255, 0.18);
             backdrop-filter: blur(5px);
-            padding: 6px 14px;
+            padding: 6px 16px 6px 10px;
             border-radius: 30px;
             border: 1px solid rgba(255, 255, 255, 0.3);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .user-dropdown-btn:hover, .user-dropdown-btn:focus {
+            background: rgba(255, 255, 255, 0.28);
+            color: var(--white);
         }
 
         .avatar {
@@ -141,26 +137,41 @@
             font-size: 13px;
         }
 
-        .user-info {
-            line-height: 1.2;
+        .dropdown-menu-end {
+            border-radius: 14px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 8px;
+            min-width: 220px;
         }
 
-        .user-info strong {
-            font-size: 13px;
-            color: var(--white);
+        .dropdown-item {
+            border-radius: 8px;
+            padding: 9px 14px;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .user-info small {
-            font-size: 11px;
-            color: #ccfbf1;
+        .dropdown-item:hover {
+            background: var(--toska-subtle);
+            color: var(--toska-dark);
+        }
+
+        .dropdown-item.text-danger:hover {
+            background: #fee2e2;
+            color: #dc2626;
         }
 
         /**********************
-        CONTENT WRAPPER
+        CONTENT WRAPPER & FOOTER
         **********************/
         .content {
             padding: 30px;
-            min-height: calc(100vh - 74px);
+            flex: 1;
         }
 
         .page-title {
@@ -170,84 +181,25 @@
             color: var(--text-dark);
         }
 
-        /**********************
-        CARDS & TABLES GLOBAL (LEBIH CERAH)
-        **********************/
-        .card {
-            border: 1px solid #cbd5e1;
-            border-radius: 16px;
-            box-shadow: var(--shadow);
-            background: var(--white);
+        .main-footer {
+            background: linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #14b8a6 100%);
+            color: var(--white);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 24px 0;
+            margin-top: auto;
+            box-shadow: 0 -4px 20px rgba(13, 148, 136, 0.15);
         }
 
-        .card-header {
-            background: var(--white);
-            font-weight: 700;
-            font-size: 16px;
-            border-bottom: 1px solid #f1f5f9;
-            padding: 16px 20px;
-            border-radius: 16px 16px 0 0 !important;
+        .footer-brand {
+            font-size: 20px;
+            font-weight: 800;
         }
 
-        /* Table Header Soft Gray/Toska (Bukan Hitam) */
-        .table thead {
-            background-color: #e2e8f0;
-            color: var(--text-dark);
-        }
+        .footer-brand span { color: #fef08a; }
 
-        .table thead th {
-            font-weight: 700;
-            border: none;
-            padding: 12px 16px;
-            color: var(--text-dark) !important;
-        }
-
-        /**********************
-        BUTTONS & FORMS
-        **********************/
-        .btn-primary {
-            background: var(--toska-primary);
-            border: none;
-            font-weight: 600;
-        }
-
-        .btn-primary:hover {
-            background: var(--toska-dark);
-        }
-
-        .form-control {
-            border-radius: 10px;
-            padding: 10px 14px;
-            border: 1px solid #cbd5e1;
-        }
-
-        .form-control:focus {
-            box-shadow: 0 0 0 0.25rem rgba(13, 148, 136, 0.15);
-            border-color: var(--toska-primary);
-        }
-
-        /**********************
-        RESPONSIVE
-        **********************/
-        @media(max-width: 991px) {
-            .content {
-                padding: 20px 15px;
-            }
-            .page-title {
-                font-size: 20px;
-            }
-            .navbar-nav {
-                margin-top: 15px;
-                gap: 4px;
-            }
-            .user-area {
-                margin-top: 15px;
-                padding-top: 15px;
-                border-top: 1px solid rgba(255, 255, 255, 0.2);
-                flex-direction: column;
-                align-items: flex-start !important;
-                gap: 12px;
-            }
+        .footer-text-muted {
+            color: rgba(255, 255, 255, 0.85) !important;
+            font-size: 13px;
         }
     </style>
 </head>
@@ -268,114 +220,108 @@
         <div class="collapse navbar-collapse" id="mainNavbar">
             
             <ul class="navbar-nav me-auto">
+                @auth
+                    {{-- MENU KHUSUS ADMIN --}}
+                    @if(Auth::user()->role == 'admin')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
+                                <i class="bi bi-grid-fill"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('admin.datapetugas*') ? 'active' : '' }}" href="{{ route('admin.datapetugas.index') }}">
+                                <i class="bi bi-people-fill"></i> Data Petugas
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('admin.kegiatan*') ? 'active' : '' }}" href="{{ route('admin.kegiatan.index') }}">
+                                <i class="bi bi-calendar-event-fill"></i> Kegiatan Liputan
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('admin.folder*') ? 'active' : '' }}" href="{{ route('admin.folder.index') }}">
+                                <i class="bi bi-folder-fill"></i> Folder Dokumentasi
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('admin.activity-logs*') ? 'active' : '' }}" href="{{ route('admin.activity-logs.index') }}">
+                                <i class="bi bi-clock-history"></i> Log Aktivitas
+                            </a>
+                        </li>
 
-                {{-- ========================= --}}
-                {{-- MENU ADMIN --}}
-                {{-- ========================= --}}
-                @if(Auth::check() && Auth::user()->role == 'admin')
+                    {{-- MENU KHUSUS PIMPINAN --}}
+                    @elseif(Auth::user()->role == 'pimpinan')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('pimpinan.dashboard') ? 'active' : '' }}" href="{{ route('pimpinan.dashboard') }}">
+                                <i class="bi bi-grid-fill"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('pimpinan.kurasi*') ? 'active' : '' }}" href="{{ route('pimpinan.kurasi.index') }}">
+                                <i class="bi bi-check2-square"></i> Kurasi / Disposisi
+                            </a>
+                        </li>
 
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
-                        <i class="bi bi-grid-fill"></i>
-                        Dashboard
-                    </a>
-                </li>
+                    {{-- MENU KHUSUS EDITOR --}}
+                    @elseif(Auth::user()->role == 'editor')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('editor.dashboard') ? 'active' : '' }}" href="{{ route('editor.dashboard') }}">
+                                <i class="bi bi-grid-fill"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('editor.tugas*') ? 'active' : '' }}" href="{{ route('editor.tugas.index') }}">
+                                <i class="bi bi-film"></i> Tugas Editing
+                            </a>
+                        </li>
 
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('admin.datapetugas*') ? 'active' : '' }}" href="{{ route('admin.datapetugas.index') }}">
-                        <i class="bi bi-people-fill"></i>
-                        Data Petugas
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('admin.kegiatan*') ? 'active' : '' }}" href="{{ route('admin.kegiatan.index') }}">
-                        <i class="bi bi-calendar-event-fill"></i>
-                        Kegiatan Liputan
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('admin.folder*') ? 'active' : '' }}" href="{{ route('admin.folder.index') }}">
-                        <i class="bi bi-folder-fill"></i>
-                        Folder Dokumentasi
-                    </a>
-                </li>
-
-                @endif
-
-
-                {{-- ================= PETUGAS ================= --}}
-                @if(Auth::check() && Auth::user()->role == "petugas")
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('petugas.dashboard') ? 'active' : '' }}" href="{{ route('petugas.dashboard') }}">
-                        <i class="bi bi-grid"></i> Dashboard
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('petugas.kegiatan*') ? 'active' : '' }}" href="{{ route('petugas.kegiatan.index') }}">
-                        <i class="bi bi-calendar-check"></i> Data Kegiatan
-                    </a>
-                </li>
-               {{-- <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('petugas.arsip*') ? 'active' : '' }}" href="{{ route('petugas.arsip') }}">
-                        <i class="bi bi-archive"></i> Arsip Dokumentasi
-                    </a>
-                </li>--}}
-                @endif
-
-
-               {{-- ================= PIMPINAN ================= --}}
-@if(Auth::check() && Auth::user()->role == "pimpinan")
-    <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('pimpinan.dashboard') ? 'active' : '' }}" href="{{ route('pimpinan.dashboard') }}">
-            <i class="bi bi-grid-fill"></i> Dashboard
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('pimpinan.kegiatan*') || request()->routeIs('pimpinan.dokumentasi*') ? 'active' : '' }}" href="{{ route('pimpinan.kegiatan') }}">
-            <i class="bi bi-folder-check"></i> Kurasi
-        </a>
-    </li>
-    
-@endif
-
-
-                {{-- ================= EDITOR ================= --}}
-                @if(Auth::check() && Auth::user()->role == "editor")
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('editor.dashboard') ? 'active' : '' }}" href="{{ route('editor.dashboard') }}">
-                        <i class="bi bi-speedometer2"></i> Dashboard
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('editor.editing*') ? 'active' : '' }}" href="{{ route('editor.editing.index') }}">
-                        <i class="bi bi-camera-video"></i> Proses Editing
-                    </a>
-                </li>
-                @endif
-
+                    {{-- MENU KHUSUS PETUGAS --}}
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('petugas.dashboard') ? 'active' : '' }}" href="{{ route('petugas.dashboard') }}">
+                                <i class="bi bi-grid-fill"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('petugas.kegiatan*') ? 'active' : '' }}" href="{{ route('petugas.kegiatan.index') }}">
+                                <i class="bi bi-calendar-event-fill"></i> Data Kegiatan 
+                            </a>
+                        </li>
+                    @endif
+                @endauth
             </ul>
 
-            <!-- PROFIL USER & LOGOUT -->
-            <div class="user-area d-flex align-items-center gap-3">
+            <!-- PROFIL USER & LOGOUT DROPDOWN -->
+            <div class="user-area">
                 @auth
-                    <div class="user-box">
-                        <div class="avatar">
-                            {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
-                        </div>
-                        <div class="user-info">
-                            <strong>{{ auth()->user()->name }}</strong><br>
-                            <small>{{ ucfirst(auth()->user()->role) }}</small>
-                        </div>
-                    </div>
-
-                    <form action="{{ route('logout') }}" method="POST" class="m-0">
-                        @csrf
-                        <button class="btn btn-warning btn-sm rounded-pill px-3 fw-bold text-dark shadow-sm">
-                            <i class="bi bi-box-arrow-right me-1"></i> Logout
+                    <div class="dropdown">
+                        <button class="btn user-dropdown-btn dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="avatar">
+                                {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
+                            </div>
+                            <div class="text-start me-1">
+                                <div class="fw-bold fs-6 style-name" style="font-size: 13px !important; line-height: 1;">{{ auth()->user()->name }}</div>
+                                <small style="font-size: 11px; color: #ccfbf1;">{{ ucfirst(auth()->user()->role) }}</small>
+                            </div>
                         </button>
-                    </form>
+                        
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li>
+                                <a class="dropdown-item" href="{{ route('profile.show') }}">
+                                    <i class="bi bi-person-circle text-primary me-2"></i> Profil Saya & 2FA
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form action="{{ route('logout') }}" method="POST" class="m-0">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item text-danger w-100 border-0 bg-transparent">
+                                        <i class="bi bi-box-arrow-right me-2"></i> Keluar / Logout
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
                 @else
                     <a href="{{ route('login') }}" class="btn btn-light rounded-pill px-4 fw-bold text-dark shadow-sm">
                         Login
@@ -394,6 +340,21 @@
 
     @yield('content')
 </div>
+
+<!-- FOOTER UTAMA -->
+<footer class="main-footer text-center">
+    <div class="container">
+        <div class="fw-bold footer-brand mb-1">
+            SIPE<span>DOK</span>
+        </div>
+        <div class="footer-text-muted mb-0">
+            Sistem Pengelolaan dan Dokumentasi Liputan
+        </div>
+        <div class="footer-text-muted mt-2" style="font-size: 12px; opacity: 0.9;">
+            &copy; {{ date('Y') }} <strong>SIPEDOK</strong>. All rights reserved.
+        </div>
+    </div>
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 @stack('scripts')

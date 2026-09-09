@@ -36,6 +36,7 @@ class DataPetugasController extends Controller
             'username' => 'required|string|max:100|unique:users,email',
             'password' => 'required|min:6',
             'role'     => 'required|in:admin,petugas,pimpinan,editor',
+            'no_hp'    => 'nullable|string|max:20',
         ]);
 
         // Jika input username diketik tanpa @sipedok.com, otomatis ditambahkan
@@ -48,6 +49,7 @@ class DataPetugasController extends Controller
             'email'     => $email,
             'password'  => Hash::make($request->password),
             'role'      => $request->role,
+            'no_hp'     => $request->no_hp,
             'is_active' => 1,
         ]);
 
@@ -73,13 +75,15 @@ class DataPetugasController extends Controller
         $user = User::findOrFail($id);
 
         $request->validate([
-            'nama' => 'required|string|max:255',
-            'role' => 'required|in:admin,petugas,pimpinan,editor',
+            'nama'  => 'required|string|max:255',
+            'role'  => 'required|in:admin,petugas,pimpinan,editor',
+            'no_hp' => 'nullable|string|max:20',
         ]);
 
         $dataUpdate = [
-            'name' => $request->nama,
-            'role' => $request->role,
+            'name'  => $request->nama,
+            'role'  => $request->role,
+            'no_hp' => $request->no_hp,
         ];
 
         if ($request->filled('username')) {

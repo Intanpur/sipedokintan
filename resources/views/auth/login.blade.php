@@ -12,10 +12,10 @@
 
     <style>
         :root {
-            --neon-cyan: #00f5d4;
-            --neon-cyan-dark: #00a896;
-            --cyan-glow: rgba(0, 245, 212, 0.25);
-            --border-cyan: rgba(0, 245, 212, 0.4);
+            --brand-teal: #00a896;
+            --brand-teal-dark: #028090;
+            --teal-light: rgba(0, 168, 150, 0.12);
+            --border-color: rgba(0, 168, 150, 0.25);
         }
 
         * {
@@ -25,28 +25,36 @@
             box-sizing: border-box;
         }
 
-        /* Latar Belakang baground.jpg */
+        /* Latar Belakang Disesuaikan Ukurannya */
         body {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: url('{{ asset("assets/images/baground.jpg") }}') center center / cover no-repeat fixed;
-            background-color: #0b1329;
+            /* Menggunakan 100% 100% agar seluruh isi background muat dan kelihatan di layar */
+            background-image: url('{{ asset("assets/images/background.png") }}');
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
             position: relative;
             overflow-x: hidden;
             padding: 20px;
         }
 
+        /* Responsive Background untuk layar HP / Tablet agar tidak gepeng */
+        @media (max-width: 768px) {
+            body {
+                background-size: cover;
+            }
+        }
+
+        /* Overlay transparan halus */
         body::before {
             content: "";
             position: absolute;
             inset: 0;
-            background: radial-gradient(
-                circle at center,
-                rgba(15, 23, 42, 0.3) 0%,
-                rgba(5, 10, 20, 0.7) 100%
-            );
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(1px);
             z-index: 0;
         }
 
@@ -54,171 +62,169 @@
             position: relative;
             z-index: 10;
             width: 100%;
-            max-width: 400px;
+            max-width: 380px;
         }
 
         /* Header Logo */
         .brand-header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .logo-box {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: rgba(15, 35, 45, 0.65);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--border-cyan);
-            padding: 12px;
-            border-radius: 24px;
-            box-shadow:
-                0 8px 25px rgba(0, 0, 0, 0.4),
-                0 0 15px var(--cyan-glow);
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
         }
 
         .logo-out {
-            width: 65px;
+            width: 55px;
             height: auto;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
         }
 
-        /* Kartu Login Transparan Sesuai Gambar Logo (Dark Teal Glass) */
+        /* Kartu Login Glassmorphism */
         .login-card {
-            background: rgba(12, 32, 42, 0.68);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border: 1px solid var(--border-cyan);
-            border-radius: 28px;
-            padding: 32px 28px;
-            box-shadow:
-                0 25px 50px rgba(0, 0, 0, 0.5),
-                0 0 25px rgba(0, 245, 212, 0.12),
-                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 24px;
+            padding: 28px 24px;
+            box-shadow: 
+                0 15px 35px rgba(0, 168, 150, 0.15),
+                0 5px 15px rgba(0, 0, 0, 0.05);
             text-align: left;
         }
 
         .badge-system {
-            background-color: rgba(0, 245, 212, 0.12);
-            color: var(--neon-cyan);
-            border: 1px solid rgba(0, 245, 212, 0.3);
-            font-size: 0.72rem;
+            background-color: var(--teal-light);
+            color: var(--brand-teal-dark);
+            border: 1px solid rgba(0, 168, 150, 0.3);
+            font-size: 0.7rem;
             font-weight: 700;
-            padding: 4px 12px;
+            padding: 4px 10px;
             border-radius: 20px;
             display: inline-block;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .title {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 800;
-            color: #ffffff;
+            color: #0f172a;
             letter-spacing: -0.02em;
         }
 
         .subtitle {
-            font-size: 0.8rem;
-            color: #94a3b8;
-            margin-bottom: 16px;
+            font-size: 0.78rem;
+            color: #475569;
+            margin-bottom: 12px;
         }
 
-        /* Garis Divider Muted Transparan Ujung ke Ujung */
+        /* Garis Divider */
         .line-divider {
             height: 1px;
-            width: calc(100% + 56px);
-            margin-left: -28px;
-            margin-bottom: 22px;
-            background-color: rgba(255, 255, 255, 0.12);
+            width: calc(100% + 48px);
+            margin-left: -24px;
+            margin-bottom: 18px;
+            background-color: rgba(0, 168, 150, 0.15);
         }
 
         .form-label {
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             font-weight: 700;
-            color: #cbd5e1;
-            margin-bottom: 6px;
+            color: #334155;
+            margin-bottom: 4px;
         }
 
-        /* Input Group Transparan Gelap dengan Cahaya Glow Konsisten */
+        /* Input Group Transparan */
         .input-group {
-            background: rgba(15, 23, 42, 0.55);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
             overflow: hidden;
             transition: all 0.2s ease;
         }
 
         .input-group:focus-within {
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 12px var(--cyan-glow);
+            border-color: var(--brand-teal);
+            box-shadow: 0 0 0 3px rgba(0, 168, 150, 0.2);
+            background: #ffffff;
         }
 
         .input-group-text {
             background: transparent;
             border: none;
-            color: var(--neon-cyan);
-            font-size: 1rem;
-            padding: 10px 14px;
+            color: var(--brand-teal);
+            font-size: 0.95rem;
+            padding: 8px 12px;
         }
 
         .form-control {
             background: transparent;
             border: none;
-            color: #ffffff;
-            font-size: 0.88rem;
+            color: #0f172a;
+            font-size: 0.85rem;
             font-weight: 500;
-            padding: 10px 14px 10px 10px;
+            padding: 8px 12px 8px 8px;
         }
 
         .form-control::placeholder {
-            color: #64748b;
+            color: #94a3b8;
         }
 
         .form-control:focus {
             background: transparent;
-            color: #ffffff;
+            color: #0f172a;
             box-shadow: none;
         }
 
         .toggle-pw {
             cursor: pointer;
             background: transparent;
-            color: #64748b;
+            color: #94a3b8;
             border: none;
-            padding: 10px 14px;
+            padding: 8px 12px;
             transition: color 0.2s;
         }
 
         .toggle-pw:hover {
-            color: var(--neon-cyan);
+            color: var(--brand-teal);
         }
 
-        /* Tombol Login Cyan Neon */
+        /* Tombol Login */
         .btn-login {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             background: linear-gradient(
                 135deg,
-                #00f5d4 0%,
-                #00a896 100%
+                #00a896 0%,
+                #028090 100%
             );
-            color: #002b26;
+            color: #ffffff;
             border: none;
-            border-radius: 12px;
-            font-weight: 800;
-            font-size: 0.9rem;
-            margin-top: 6px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-top: 4px;
             cursor: pointer;
-            box-shadow: 0 6px 20px var(--cyan-glow);
+            box-shadow: 0 4px 12px rgba(0, 168, 150, 0.3);
             transition: all 0.2s ease;
         }
 
         .btn-login:hover {
             opacity: 0.95;
             transform: translateY(-1px);
-            box-shadow: 0 10px 24px var(--cyan-glow);
-            color: #000000;
+            box-shadow: 0 6px 16px rgba(0, 168, 150, 0.4);
+            color: #ffffff;
         }
 
         .btn-login:active {
@@ -227,14 +233,14 @@
 
         .footer-note {
             text-align: center;
-            font-size: 0.75rem;
-            margin-top: 20px;
-            color: #94a3b8;
+            font-size: 0.72rem;
+            margin-top: 16px;
+            color: #475569;
             font-weight: 500;
         }
 
         .footer-note a {
-            color: var(--neon-cyan);
+            color: var(--brand-teal-dark);
             text-decoration: none;
             font-weight: 700;
         }
@@ -244,20 +250,20 @@
         }
 
         .alert {
-            border-radius: 12px;
-            font-size: 0.82rem;
-            padding: 10px 14px;
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            background: rgba(239, 68, 68, 0.15);
-            color: #fca5a5;
+            border-radius: 10px;
+            font-size: 0.78rem;
+            padding: 8px 12px;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            background: rgba(254, 242, 242, 0.9);
+            color: #dc2626;
         }
 
         /* Container reCAPTCHA */
         .recaptcha-container {
             display: flex;
             justify-content: center;
-            margin: 16px 0;
-            transform: scale(0.92);
+            margin: 12px 0;
+            transform: scale(0.88);
             transform-origin: center;
         }
     </style>
@@ -278,7 +284,7 @@
         </div>
     </div>
 
-    {{-- Form Card Transparan --}}
+    {{-- Form Card Glassmorphism --}}
     <div class="login-card">
 
         <div class="text-center">
@@ -296,7 +302,7 @@
             </div>
         </div>
 
-        {{-- Garis Horizontal Muted Ujung ke Ujung --}}
+        {{-- Garis Horizontal --}}
         <div class="line-divider"></div>
 
         {{-- Alerts --}}
@@ -308,13 +314,12 @@
         @endif
 
         @if(session('success'))
-            <div class="alert mb-3" style="border-color: rgba(0, 245, 212, 0.3); background: rgba(0, 245, 212, 0.15); color: #00f5d4;">
+            <div class="alert mb-3" style="border-color: rgba(0, 168, 150, 0.2); background: rgba(240, 253, 244, 0.9); color: #15803d;">
                 <i class="bi bi-check-circle-fill me-1"></i>
                 {{ session('success') }}
             </div>
         @endif
 
-        {{-- Menampilkan Pesan Error Email (Termasuk Peringatan Akun Non-Aktif) --}}
         @if ($errors->has('email'))
             <div class="alert mb-3" role="alert">
                 <i class="bi bi-exclamation-triangle-fill me-1"></i>
@@ -322,7 +327,6 @@
             </div>
         @endif
 
-        {{-- Error reCAPTCHA --}}
         @if ($errors->has('g-recaptcha-response'))
             <div class="alert mb-3" role="alert">
                 <i class="bi bi-exclamation-triangle-fill me-1"></i>
@@ -398,7 +402,7 @@
             <div class="recaptcha-container">
                 <div
                     class="g-recaptcha"
-                    data-theme="dark"
+                    data-theme="light"
                     data-sitekey="{{ config('services.recaptcha.site_key') }}"
                 >
                 </div>

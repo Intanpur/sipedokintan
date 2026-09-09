@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\DisposisiPimpinan; // <-- Import model yang benar di sini
 
 class FolderDokumentasi extends Model
 {
@@ -41,6 +42,18 @@ class FolderDokumentasi extends Model
     public function dokumentasi(): HasMany
     {
         return $this->hasMany(Dokumentasi::class, 'folder_id');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | RELASI DISPOSISI PIMPINAN
+    |--------------------------------------------------------------------------
+    */
+
+    public function disposisi(): HasMany
+    {
+        // Diarahkan ke DisposisiPimpinan
+        return $this->hasMany(DisposisiPimpinan::class, 'folder_id');
     }
 
     /*

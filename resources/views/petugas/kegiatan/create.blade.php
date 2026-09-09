@@ -115,27 +115,7 @@
                 </select>
             </div>
 
-            {{-- Deskripsi --}}
-            <div class="mb-3">
-                <label class="form-label">
-                    Deskripsi
-                </label>
-
-                <textarea
-                    name="deskripsi"
-                    class="form-control"
-                    rows="4"
-                >{{ old('deskripsi') }}</textarea>
-            </div>
-
-            <div class="d-flex gap-2">
-
-                <a
-                    href="{{ route('petugas.kegiatan.index') }}"
-                    class="btn btn-secondary"
-                >
-                    Kembali
-                </a>
+           
 
                 <button
                     type="submit"

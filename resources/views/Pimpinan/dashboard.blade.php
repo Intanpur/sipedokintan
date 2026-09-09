@@ -47,10 +47,20 @@
         letter-spacing: 0.5px;
         text-transform: uppercase;
     }
+
+    .feature-icon-box {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+    }
 </style>
 
-{{-- BANNER WELCOME --}}
-<div class="card border-0 shadow-sm mb-4" style="background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%); color: white;">
+{{-- 1. BANNER WELCOME --}}
+<div class="card border-0 shadow-sm mb-4" style="background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%); color: white; border-radius: 16px;">
     <div class="card-body p-4">
         <div class="d-flex align-items-center justify-content-between">
             <div>
@@ -58,7 +68,7 @@
                     <i class="bi bi-hand-thumbs-up-fill me-2"></i>Selamat Datang, {{ Auth::user()->name }}
                 </h4>
                 <p class="mb-0 opacity-75 small">
-                    Pantau progres unggahan dokumentasi kegiatan dan berikan catatan disposisi secara langsung.
+                    Pantau progres unggahan dokumentasi kegiatan, kurasi foto/video untuk editor, dan berikan catatan disposisi secara langsung.
                 </p>
             </div>
             <div class="d-none d-md-block text-end">
@@ -70,9 +80,80 @@
     </div>
 </div>
 
-{{-- STATISTIC CARDS (SERAGAM WARNA HIJAU TOSKA) --}}
-<div class="row g-3 mb-4">
+{{-- 2. PANDUAN RINGKAS FITUR PIMPINAN --}}
+<div class="card border-0 shadow-sm mb-4" style="border-radius: 14px;">
+    <div class="card-header bg-white py-3 border-bottom">
+        <h6 class="fw-bold mb-0 text-dark">
+            <i class="bi bi-info-circle-fill me-2" style="color: var(--toska-primary);"></i>Panduan Fitur Utama Pimpinan
+        </h6>
+    </div>
+    <div class="card-body">
+        <div class="row g-3">
+            <!-- Fitur 1 -->
+            <div class="col-md-3">
+                <div class="p-3 border rounded-3 bg-light h-100">
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="feature-icon-box text-white me-2" style="background-color: var(--toska-dark);">
+                            <i class="bi bi-speedometer2"></i>
+                        </div>
+                        <h6 class="fw-bold text-dark mb-0" style="font-size: 14px;">1. Ringkasan & Kurasi</h6>
+                    </div>
+                    <p class="small text-muted mb-0">
+                        Memantau total kegiatan, berkas masuk, serta jumlah foto dan video yang telah disetujui (terkurasi) untuk dikirim ke editor.
+                    </p>
+                </div>
+            </div>
 
+            <!-- Fitur 2 -->
+            <div class="col-md-3">
+                <div class="p-3 border rounded-3 bg-light h-100">
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="feature-icon-box text-white me-2" style="background-color: var(--toska-dark);">
+                            <i class="bi bi-check2-square"></i>
+                        </div>
+                        <h6 class="fw-bold text-dark mb-0" style="font-size: 14px;">2. Kurasi Foto & Video</h6>
+                    </div>
+                    <p class="small text-muted mb-0">
+                        Menyeleksi dan menandai berkas media pilihan yang layak dipublikasikan atau diolah lebih lanjut oleh tim Editor.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Fitur 3 -->
+            <div class="col-md-3">
+                <div class="p-3 border rounded-3 bg-light h-100">
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="feature-icon-box text-white me-2" style="background-color: var(--toska-dark);">
+                            <i class="bi bi-send-check"></i>
+                        </div>
+                        <h6 class="fw-bold text-dark mb-0" style="font-size: 14px;">3. Penerusan ke Editor</h6>
+                    </div>
+                    <p class="small text-muted mb-0">
+                        Mengirimkan berkas hasil kurasi langsung ke halaman/sistem tim Editor lengkap dengan catatan teknis.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Fitur 4 -->
+            <div class="col-md-3">
+                <div class="p-3 border rounded-3 bg-light h-100">
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="feature-icon-box text-white me-2" style="background-color: var(--toska-dark);">
+                            <i class="bi bi-journal-text"></i>
+                        </div>
+                        <h6 class="fw-bold text-dark mb-0" style="font-size: 14px;">4. Catatan Disposisi</h6>
+                    </div>
+                    <p class="small text-muted mb-0">
+                        Memberikan instruksi khusus, koreksi, atau saran penyuntingan kepada editor maupun petugas lapangan.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- 3. STATISTIC CARDS --}}
+<div class="row g-3 mb-4">
     <div class="col-md-3">
         <div class="card card-stat-green shadow-sm p-3">
             <div class="d-flex align-items-center justify-content-between">
@@ -82,20 +163,6 @@
                 </div>
                 <div class="icon-wrapper-green">
                     <i class="bi bi-calendar-event"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="card card-stat-green shadow-sm p-3">
-            <div class="d-flex align-items-center justify-content-between">
-                <div>
-                    <span class="text-muted small fw-semibold">Total Folder</span>
-                    <h2 class="fw-extrabold mb-0 mt-1" style="color: var(--toska-dark);">{{ $totalFolder }}</h2>
-                </div>
-                <div class="icon-wrapper-green">
-                    <i class="bi bi-folder-check"></i>
                 </div>
             </div>
         </div>
@@ -129,10 +196,23 @@
         </div>
     </div>
 
+    <div class="col-md-3">
+        <div class="card card-stat-green shadow-sm p-3">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <span class="text-muted small fw-semibold">Terkurasi (Ke Editor)</span>
+                    <h2 class="fw-extrabold mb-0 mt-1" style="color: var(--toska-dark);">{{ $totalTerkurasi ?? 0 }}</h2>
+                </div>
+                <div class="icon-wrapper-green">
+                    <i class="bi bi-check-circle-fill"></i>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-{{-- TABEL MONITORING KEGIATAN LEBIH LENGKAP --}}
-<div class="card border-0 shadow-sm">
+{{-- 4. TABEL MONITORING KEGIATAN --}}
+<div class="card border-0 shadow-sm" style="border-radius: 14px;">
     <div class="card-header bg-white py-3 d-flex align-items-center justify-content-between">
         <h6 class="fw-bold mb-0 text-dark">
             <i class="bi bi-clock-history text-success me-2"></i>Kegiatan Liputan Terbaru
@@ -173,7 +253,7 @@
                             </span>
                         </td>
                         <td class="text-center">
-                            <a href="{{ route('pimpinan.kegiatan') }}" class="btn btn-sm btn-primary rounded-pill px-3">
+                            <a href="{{ route('pimpinan.kurasi.index') }}" class="btn btn-sm btn-primary rounded-pill px-3">
                                 <i class="bi bi-eye me-1"></i> Review
                             </a>
                         </td>

@@ -6,24 +6,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Laravel\Fortify\TwoFactorAuthenticatable; // Trait untuk 2FA
 
-/**
- * @property int $id
- * @property string $name
- * @property string $email
- * @property string|null $google_id
- * @property string $role
- * @property string|null $jabatan
- * @property string|null $no_hp
- * @property bool $is_active
- * @property \Illuminate\Support\Carbon|null $last_login
- * @property string|null $last_login_ip
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- */
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRoles;
+    // Trait dipindahkan ke DALAM class
+    use HasFactory, Notifiable, HasRoles, TwoFactorAuthenticatable;
 
     protected $fillable = [
         'name',
@@ -35,12 +23,17 @@ class User extends Authenticatable
         'no_hp',
         'is_active',
         'last_login',
-        'last_login_ip'
+        'last_login_ip',
+        'two_factor_secret',         // Ditambahkan untuk 2FA
+        'two_factor_recovery_codes', // Ditambahkan untuk 2FA
+        'two_factor_confirmed_at',   // Ditambahkan untuk 2FA
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
+        'two_factor_secret',         // Disembunyikan demi keamanan
+        'two_factor_recovery_codes', // Disembunyikan demi keamanan
     ];
 
     protected function casts(): array
@@ -50,6 +43,7 @@ class User extends Authenticatable
             'password'          => 'hashed',
             'is_active'         => 'boolean',
             'last_login'        => 'datetime',
+            'two_factor_confirmed_at' => 'datetime',
         ];
     }
 

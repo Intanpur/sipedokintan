@@ -182,35 +182,53 @@
                     Kembali
                 </a>
 
-                @php
-                    $noHp = $folder->kegiatan->pimpinan->no_hp ?? '6282318603728'; 
-                    $noHpFormatted = preg_replace('/^0/', '62', preg_replace('/[^0-9]/', '', $noHp));
+                <form action="{{ route('petugas.folder.kirimPimpinan', $folder->id) }}" method="POST" class="d-inline m-0 p-0">
+    @csrf
+    <!-- Tombol Pemicu Modal -->
+<button type="button" class="btn btn-success rounded-pill px-4 py-2 fw-bold shadow-sm d-inline-flex align-items-center gap-2 text-nowrap" data-bs-toggle="modal" data-bs-target="#modalKirimWA">
+    <span>📲 Kirim Notifikasi WA</span>
+</button>
 
-                    $tglKegiatan = $folder->kegiatan->tanggal_kegiatan 
-                        ? \Carbon\Carbon::parse($folder->kegiatan->tanggal_kegiatan)->format('d M Y') 
-                        : '-';
-
-                    $totalFoto = $folder->dokumentasi->where('tipe_file', 'foto')->count();
-                    $totalVideo = $folder->dokumentasi->where('tipe_file', 'video')->count();
-                    $totalFile = $folder->dokumentasi->count();
-
-                    $linkFolder = url()->current(); 
-
-                    $pesan = "Yth. Bpk/Ibu Pimpinan,\n\n"
-                           . "Melaporkan dokumentasi kegiatan berikut telah diunggah ke sistem SIPEDOK:\n\n"
-                           . "📌 *Folder:* " . $folder->nama_folder . "\n"
-                           . "📅 *Tanggal:* " . $tglKegiatan . "\n"
-                           . "📍 *Lokasi:* " . ($folder->kegiatan->lokasi ?? '-') . "\n"
-                           . "📁 *Jumlah File:* " . $totalFile . " file (" . $totalFoto . " Foto, " . $totalVideo . " Video)\n\n"
-                           . "🔗 *Link Folder:* " . $linkFolder . "\n\n"
-                           . "Silakan cek dokumentasi lengkapnya melalui tautan aplikasi SIPEDOK. Terima kasih.";
-
-                    $waUrl = "https://api.whatsapp.com/send?phone=" . $noHpFormatted . "&text=" . urlencode($pesan);
-                @endphp
-
-                <a href="{{ $waUrl }}" target="_blank" class="btn btn-success rounded-pill px-4 py-2 fw-bold shadow-sm d-inline-flex align-items-center gap-2">
-                    <span>📲 Kirim Notifikasi WA ke Pimpinan</span>
-                </a>
+<!-- Modal Pilih Pimpinan -->
+<div class="modal fade" id="modalKirimWA" tabindex="-1" aria-labelledby="modalKirimWALabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow">
+            <div class="modal-header border-bottom-0 pb-0">
+                <h5 class="modal-title fw-bold" id="modalKirimWALabel">
+                    <i class="bi bi-whatsapp text-success me-2"></i>Pilih Pimpinan
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <form action="{{ route('petugas.folder.kirimPimpinan', $folder->id) }}" method="POST">
+                @csrf
+                <div class="modal-body py-3">
+                    <p class="text-muted small mb-3">Pilih pimpinan yang akan menerima laporan dokumentasi kegiatan ini via WhatsApp:</p>
+                    
+                    <div class="mb-3">
+                        <label for="pimpinan_id" class="form-label fw-semibold">Nama Pimpinan</label>
+                        <select name="pimpinan_id" id="pimpinan_id" class="form-select rounded-3" required>
+                            <option value="" selected disabled>-- Pilih Pimpinan --</option>
+                            @foreach($pimpinanList as $pimpinan)
+                                <option value="{{ $pimpinan->id }}">
+                                    {{ $pimpinan->name }} ({{ $pimpinan->no_hp ?? 'No HP belum diisi' }})
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="modal-footer border-top-0 pt-0">
+                    <button type="button" class="btn btn-light rounded-pill px-3" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-success rounded-pill px-4 fw-bold">
+                        <i class="bi bi-send me-1"></i> Kirim Pesan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</form>
 
                 <button type="button" class="btn btn-cyan rounded-pill px-4 py-2 d-inline-flex align-items-center gap-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#uploadModal">
                     <i class="bi bi-cloud-arrow-up-fill fs-5"></i>
@@ -495,6 +513,7 @@
 <div class="modal fade" id="sharePimpinanModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content rounded-4 border-0">
+            <!-- Action diisi dinamis via JavaScript atau dipasang ke route kirim file tunggal -->
             <form id="sharePimpinanForm" method="POST" action="">
                 @csrf
                 <div class="modal-header border-0">
@@ -516,10 +535,6 @@
                             @endif
                         </select>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label small text-muted fw-semibold">Catatan / Pesan (Opsional)</label>
-                        <textarea name="catatan" class="form-control rounded-3" rows="3" placeholder="Tambahkan catatan singkat..."></textarea>
-                    </div>
                 </div>
                 <div class="modal-footer border-0">
                     <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Batal</button>
@@ -529,7 +544,6 @@
         </div>
     </div>
 </div>
-
 {{-- MODAL UPLOAD DOKUMENTASI --}}
 <div class="modal fade" id="uploadModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -574,15 +588,17 @@
         previewModal.show();
     }
 
-    function openShareModal(id, fileName) {
-        const form = document.getElementById('sharePimpinanForm');
-        const text = document.getElementById('shareFileNameText');
+    function openShareModal(fileId, fileName) {
+        // Set nama file di modal
+        document.getElementById('shareFileNameText').innerText = fileName;
         
-        form.action = `/petugas/dokumentasi/${id}/share`;
-        text.innerText = fileName;
+        // Ubah action form mengarah ke route kirim file tunggal milik petugas
+        let form = document.getElementById('sharePimpinanForm');
+        form.action = "{{ url('/petugas/dokumentasi') }}/" + fileId + "/share-pimpinan";
         
-        const modal = new bootstrap.Modal(document.getElementById('sharePimpinanModal'));
-        modal.show();
+        // Tampilkan modal
+        var shareModal = new bootstrap.Modal(document.getElementById('sharePimpinanModal'));
+        shareModal.show();
     }
 
     function selectFile(id, name, type, url, size, uploadDate, uploader) {

@@ -72,10 +72,11 @@ body {
     <div class="card card-modern p-4 mb-4">
         <h5 class="fw-bold mb-3 border-bottom pb-2 text-dark"><i class="bi bi-folder2-open text-warning me-2"></i>Informasi Folder & Pengunggah</h5>
         
-        @php
-            $folder = $kegiatan->folder->first();
-            $uploader = $kegiatan->createdBy;
-        @endphp
+       @php
+    // Ambil objek folder langsung tanpa method ->first()
+    $folder = $kegiatan->folder;
+    $uploader = $kegiatan->createdBy;
+@endphp
 
         <div class="row g-3">
             <div class="col-md-4">

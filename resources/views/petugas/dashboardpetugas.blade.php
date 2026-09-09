@@ -35,9 +35,9 @@ main > h2,
    PAPAN INFORMASI / BANNER
 ========================================================= */
 .info-banner-cyan {
-    background: var(--navbar-green);
+    background: linear-gradient(135deg, var(--navbar-green) 0%, var(--navbar-green-dark) 100%);
     border-radius: 20px;
-    padding: 26px 30px;
+    padding: 28px 32px;
     color: #ffffff;
     margin-bottom: 24px;
     box-shadow: 0 10px 25px -5px rgba(17, 163, 148, 0.3);
@@ -70,7 +70,7 @@ main > h2,
 }
 
 .banner-title {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 800;
     margin: 0 0 6px 0;
     display: flex;
@@ -104,7 +104,36 @@ main > h2,
 }
 
 /* =========================================================
-   ROW 1: STATISTIK CARDS
+   PANDUAN FITUR PETUGAS
+========================================================= */
+.feature-icon-box {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    background-color: var(--navbar-green-dark);
+    color: #ffffff;
+    flex-shrink: 0;
+}
+
+.row-cols-md-5 > * {
+    flex: 0 0 auto;
+    width: 20%;
+}
+
+@media (max-width: 992px) {
+    .row-cols-md-5 > * { width: 50%; }
+}
+
+@media (max-width: 576px) {
+    .row-cols-md-5 > * { width: 100%; }
+}
+
+/* =========================================================
+   STATISTIK CARDS
 ========================================================= */
 .stat-grid-4 {
     display: grid;
@@ -162,7 +191,7 @@ main > h2,
 
 .icon-yellow { background: #fef08a; color: #ca8a04; }
 .icon-cyan   { background: #ccfbf1; color: var(--navbar-green-dark); }
-.icon-green  { background: #bbf7d0; color: #16a34a; }
+.icon-green  { background: #dcfce7; color: #15803d; }
 .icon-red    { background: #fecdd3; color: #e11d48; }
 
 .stat-card-footer {
@@ -213,7 +242,7 @@ main > h2,
 }
 
 /* =========================================================
-   QUICK UPLOAD HUB
+   QUICK UPLOAD HUB & STREAM
 ========================================================= */
 .upload-hub-card {
     background: #ffffff;
@@ -310,9 +339,6 @@ main > h2,
     color: #64748b;
 }
 
-/* =========================================================
-   STREAM DOKUMENTASI TERBARU
-========================================================= */
 .stream-section-title {
     font-size: 15px;
     font-weight: 800;
@@ -368,7 +394,7 @@ main > h2,
 }
 
 /* =========================================================
-   RIGHT SIDEBAR
+   RIGHT SIDEBAR & EXTRA WIDGETS
 ========================================================= */
 .sidebar-widget-card {
     background: #ffffff;
@@ -386,45 +412,7 @@ main > h2,
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 6px;
-}
-
-.widget-subtitle {
-    font-size: 11px;
-    color: #64748b;
-    line-height: 1.4;
-    margin-bottom: 16px;
-}
-
-.btn-chat-wa {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 12px 16px;
-    background: #10b981;
-    color: #ffffff !important;
-    border: none;
-    border-radius: 14px;
-    font-size: 13px;
-    font-weight: 700;
-    text-decoration: none;
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
-    transition: all 0.25s ease;
-}
-
-.btn-chat-wa:hover {
-    background: #059669;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
-}
-
-.empty-activity {
-    text-align: center;
-    padding: 24px 10px;
-    color: #94a3b8;
-    font-size: 12px;
+    margin-bottom: 12px;
 }
 
 .activity-list {
@@ -457,9 +445,32 @@ main > h2,
     flex: 0 0 24px;
 }
 
-/* =========================================================
-   RESPONSIVE LAYOUT
-========================================================= */
+.quick-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: #1e293b;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    margin-bottom: 8px;
+}
+
+.quick-action-btn:last-child {
+    margin-bottom: 0;
+}
+
+.quick-action-btn:hover {
+    background: #f0fdfa;
+    border-color: var(--navbar-green);
+    color: var(--navbar-green-dark);
+}
+
 @media (max-width: 1024px) {
     .dashboard-main-grid { grid-template-columns: 1fr; }
     .stat-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -472,12 +483,27 @@ main > h2,
 </style>
 
 @php
-    $userName = auth()->user()->name ?? 'Intan';
+    $userName = auth()->user()->name ?? 'Petugas';
 @endphp
 
 <div class="drive-dashboard">
 
-    {{-- PAPAN INFORMASI BANNER --}}
+    {{-- ALERT FEEDBACK UMUM --}}
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm rounded-3 mb-4" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i> {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm rounded-3 mb-4" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    {{-- 1. BANNER INFORMASI --}}
     <div class="info-banner-cyan">
         <div class="banner-content">
             <div class="banner-dashboard-tag">
@@ -491,14 +517,99 @@ main > h2,
             </p>
         </div>
         <div class="banner-badge">
-            <i class="bi bi-shield-check"></i> Sistem Aktif & Siap
+            <i class="bi bi-shield-check"></i> Akses Petugas Aktif
         </div>
     </div>
 
-    {{-- ROW 1: CARDS STATISTIK --}}
-    <div class="stat-grid-4">
+    {{-- 2. PANDUAN FITUR UTAMA PETUGAS --}}
+    <div class="card border-0 shadow-sm mb-4" style="border-radius: 18px;">
+        <div class="card-header bg-white py-3 border-bottom" style="border-radius: 18px 18px 0 0;">
+            <h6 class="fw-bold mb-0 text-dark">
+                <i class="bi bi-info-circle-fill me-2" style="color: var(--navbar-green);"></i>Panduan Fitur Utama Petugas
+            </h6>
+        </div>
+        <div class="card-body">
+            <div class="row g-3 row-cols-md-5">
+                <!-- Fitur 1: Data Kegiatan -->
+                <div>
+                    <div class="p-3 border rounded-3 bg-light h-100">
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="feature-icon-box me-2">
+                                <i class="bi bi-calendar2-event-fill"></i>
+                            </div>
+                            <h6 class="fw-bold text-dark mb-0" style="font-size: 13px;">1. Data Kegiatan</h6>
+                        </div>
+                        <p class="small text-muted mb-0" style="font-size: 11px; line-height: 1.4;">
+                            Mencari, memfilter (bulan/tahun), dan menjelajahi folder dokumentasi liputan secara interaktif.
+                        </p>
+                    </div>
+                </div>
 
-        {{-- Card 1: Total Folder --}}
+                <!-- Fitur 2: Kelola Folder -->
+                <div>
+                    <div class="p-3 border rounded-3 bg-light h-100">
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="feature-icon-box me-2">
+                                <i class="bi bi-folder-plus"></i>
+                            </div>
+                            <h6 class="fw-bold text-dark mb-0" style="font-size: 13px;">2. Kelola Folder</h6>
+                        </div>
+                        <p class="small text-muted mb-0" style="font-size: 11px; line-height: 1.4;">
+                            Membuat folder agenda baru dengan mengisi nama kegiatan, lokasi, serta tanggal pelaksanaan.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Fitur 3: Notifikasi WA Pimpinan -->
+                <div>
+                    <div class="p-3 border rounded-3 bg-light h-100">
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="feature-icon-box me-2" style="background-color: #25d366;">
+                                <i class="bi bi-whatsapp"></i>
+                            </div>
+                            <h6 class="fw-bold text-dark mb-0" style="font-size: 13px;">3. Info WA Pimpinan</h6>
+                        </div>
+                        <p class="small text-muted mb-0" style="font-size: 11px; line-height: 1.4;">
+                            Setelah membuat folder, gunakan tombol *📲 Kirim Notifikasi WA* di dalam folder untuk memberi tahu pimpinan via Fonnte.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Fitur 4: Unggah Media -->
+                <div>
+                    <div class="p-3 border rounded-3 bg-light h-100">
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="feature-icon-box me-2">
+                                <i class="bi bi-cloud-arrow-up"></i>
+                            </div>
+                            <h6 class="fw-bold text-dark mb-0" style="font-size: 13px;">4. Unggah Media</h6>
+                        </div>
+                        <p class="small text-muted mb-0" style="font-size: 11px; line-height: 1.4;">
+                            Mengunggah berkas foto dan video dokumentasi secara kilat melalui area *Quick Upload Hub*.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Fitur 5: Pantau Storage -->
+                <div>
+                    <div class="p-3 border rounded-3 bg-light h-100">
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="feature-icon-box me-2">
+                                <i class="bi bi-hdd-network"></i>
+                            </div>
+                            <h6 class="fw-bold text-dark mb-0" style="font-size: 13px;">5. Pantau Storage</h6>
+                        </div>
+                        <p class="small text-muted mb-0" style="font-size: 11px; line-height: 1.4;">
+                            Memantau kapasitas penyimpanan media dan riwayat aktivitas unggahan secara *real-time*.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- 3. CARDS STATISTIK --}}
+    <div class="stat-grid-4">
         <div class="stat-card-box">
             <div class="stat-card-top">
                 <div>
@@ -515,7 +626,6 @@ main > h2,
             </div>
         </div>
 
-        {{-- Card 2: Total File --}}
         <div class="stat-card-box">
             <div class="stat-card-top">
                 <div>
@@ -532,24 +642,22 @@ main > h2,
             </div>
         </div>
 
-        {{-- Card 3: Status Notifikasi WA --}}
         <div class="stat-card-box">
             <div class="stat-card-top">
                 <div>
-                    <div class="stat-card-title">Status Notifikasi WA</div>
-                    <div class="stat-card-value">{{ $waSentCount ?? 0 }} Terkirim</div>
+                    <div class="stat-card-title">Aktivitas Hari Ini</div>
+                    <div class="stat-card-value">{{ $todayUploadsCount ?? 0 }}</div>
                 </div>
                 <div class="stat-card-icon icon-green">
-                    <i class="bi bi-whatsapp"></i>
+                    <i class="bi bi-lightning-charge-fill"></i>
                 </div>
             </div>
             <div class="stat-card-footer">
-                <span><i class="bi bi-check2-all me-1"></i> Ke Pimpinan</span>
-                <span class="badge-status-pill ready">Ready</span>
+                <span><i class="bi bi-clock-history me-1"></i> Update real-time</span>
+                <span class="badge-status-pill ready">Siap</span>
             </div>
         </div>
 
-        {{-- Card 4: Penggunaan Storage --}}
         <div class="stat-card-box">
             <div class="stat-card-top">
                 <div>
@@ -566,15 +674,13 @@ main > h2,
                 </div>
             </div>
         </div>
-
     </div>
 
-    {{-- LAYOUT UTAMA --}}
+    {{-- 4. LAYOUT UTAMA --}}
     <div class="dashboard-main-grid">
 
         {{-- KOLOM KIRI --}}
         <div>
-
             {{-- QUICK UPLOAD HUB --}}
             <div class="upload-hub-card">
                 <div class="hub-header">
@@ -589,7 +695,6 @@ main > h2,
                     @endif
                 </div>
 
-                {{-- DENGAN MENGGUNAKAN TAG <a> KE ROUTE CREATE KITA MENGHINDARI METHOD POST KETIKA BANNER DIKLIK --}}
                 <a href="{{ Route::has('petugas.kegiatan.create') ? route('petugas.kegiatan.create') : url('petugas/kegiatan/create') }}" class="upload-dropzone-link">
                     <div class="upload-dropzone">
                         <div class="upload-icon-circle">
@@ -624,82 +729,64 @@ main > h2,
                         @endforeach
                     </div>
                 @else
-                    <div style="background: #f1f5f9; padding: 30px; border-radius: 16px; border: 1px solid #cbd5e1; text-align: center; color: #64748b; font-size: 12px;">
-                        <i class="bi bi-inbox" style="font-size: 32px; display: block; margin-bottom: 6px; color: #94a3b8;"></i>
-                        Belum ada stream dokumentasi kegiatan terbaru.
+                    {{-- VISUAL KHUSUS JIKA EMPTY / KOSONG --}}
+                    <div class="card border-0 shadow-sm text-center py-5 px-4" style="border-radius: 18px; background: #ffffff;">
+                        <div class="mb-3">
+                            <div class="d-inline-flex align-items-center justify-content-center bg-light text-warning rounded-circle" style="width: 70px; height: 70px;">
+                                <i class="bi bi-folder-plus" style="font-size: 32px;"></i>
+                            </div>
+                        </div>
+                        <h6 class="fw-bold text-dark mb-1">Belum Ada Folder Dokumentasi</h6>
+                        <p class="text-muted small mb-3" style="max-width: 420px; margin: 0 auto; font-size: 12px;">
+                            Mulai dengan membuat folder kegiatan pertama Anda untuk mengorganisir foto dan video liputan secara rapi.
+                        </p>
+                        @if(Route::has('petugas.kegiatan.create'))
+                            <div>
+                                <a href="{{ route('petugas.kegiatan.create') }}" class="btn btn-primary btn-sm rounded-pill px-4 py-2 fw-bold" style="background-color: var(--navbar-green); border: none;">
+                                    <i class="bi bi-plus-circle me-1"></i> Buat Folder Pertama
+                                </a>
+                            </div>
+                        @endif
                     </div>
                 @endif
             </div>
-
         </div>
 
         {{-- KOLOM KANAN (SIDEBAR) --}}
         <div>
-
-            {{-- WIDGET 1: KONTAK PIMPINAN SIAGA --}}
-            <div class="sidebar-widget-card">
-                <div class="widget-title">
-                    <i class="bi bi-whatsapp text-success"></i> Kontak Pimpinan Siaga
+            {{-- WIDGET PANDUAN CEPAT NOTIFIKASI --}}
+            <div class="sidebar-widget-card" style="background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%); border-color: #bbf7d0;">
+                <div class="widget-title text-success">
+                    <i class="bi bi-whatsapp"></i> Alur Notifikasi Pimpinan
                 </div>
-                <div class="widget-subtitle">
-                    Pilih pimpinan tujuan untuk mengirim notifikasi pesan instan tanpa perlu buka folder satu per satu.
+                <div class="text-muted mb-3" style="font-size: 11px; line-height: 1.5;">
+                    Ingin mengirim notifikasi ke pimpinan?
                 </div>
-
-                <div class="mb-3">
-                    <select id="selectPimpinan" class="form-select form-select-sm" onchange="updateWaLink()" style="border-radius: 10px; font-size: 12px; padding: 8px 12px; border-color: #cbd5e1;">
-                        <option value="" disabled selected>-- Pilih Pimpinan Tujuan --</option>
-                        @if(isset($listPimpinan) && $listPimpinan->count() > 0)
-                            @foreach($listPimpinan as $p)
-                                <option value="{{ $p->no_hp }}" data-nama="{{ $p->name }}">
-                                    {{ $p->name }} ({{ $p->no_hp ?? 'No. HP Belum Ada' }})
-                                </option>
-                            @endforeach
-                        @else
-                            <option value="" disabled>Data pimpinan belum tersedia</option>
-                        @endif
-                    </select>
-                </div>
-
-                <a id="btnChatWa" href="#" target="_blank" class="btn-chat-wa" style="pointer-events: none; opacity: 0.5; background-color: #94a3b8; box-shadow: none;">
-                    <i class="bi bi-chat-dots-fill"></i> Chat Pimpinan Sekarang
-                </a>
+                <ol class="ps-3 mb-0 text-muted" style="font-size: 11px; line-height: 1.6;">
+                    <li class="mb-1">Buat / Buka *Folder Kegiatan*.</li>
+                    <li class="mb-1">Klik tombol <strong class="text-success">📲 Kirim Notifikasi WA</strong> di halaman detail folder.</li>
+                    <li>Pilih nama pimpinan dan klik *Kirim Sekarang*.</li>
+                </ol>
             </div>
 
-            <script>
-            function updateWaLink() {
-                const select = document.getElementById('selectPimpinan');
-                const selectedOption = select.options[select.selectedIndex];
-                const noHp = selectedOption.value;
-                const namaPimpinan = selectedOption.getAttribute('data-nama');
-                const btn = document.getElementById('btnChatWa');
-
-                if (noHp && noHp !== 'null') {
-                    let formattedPhone = noHp.replace(/[^0-9]/g, '');
-                    if (formattedPhone.startsWith('0')) {
-                        formattedPhone = '62' + formattedPhone.slice(1);
-                    }
-
-                    const message = encodeURIComponent(`Halo ${namaPimpinan}, laporan dokumentasi kegiatan terbaru sudah diunggah ke SIPEDOK.`);
-                    
-                    btn.href = `https://wa.me/${formattedPhone}?text=${message}`;
-                    btn.style.pointerEvents = 'auto';
-                    btn.style.opacity = '1';
-                    btn.style.backgroundColor = '#10b981';
-                    btn.style.boxShadow = '0 4px 12px rgba(16, 185, 129, 0.25)';
-                } else {
-                    alert('Nomor HP untuk pimpinan ini belum diatur oleh admin!');
-                    btn.style.pointerEvents = 'none';
-                    btn.style.opacity = '0.5';
-                    btn.style.backgroundColor = '#94a3b8';
-                    btn.style.boxShadow = 'none';
-                }
-            }
-            </script>
-
-            {{-- WIDGET 2: AKTIVITAS KEGIATAN TERAKHIR --}}
+            {{-- WIDGET PINTASAN CEPAT --}}
             <div class="sidebar-widget-card">
                 <div class="widget-title">
-                    <i class="bi bi-activity"></i> Aktivitas Kegiatan Terakhir
+                    <i class="bi bi-lightning-charge-fill text-warning"></i> Pintasan Cepat
+                </div>
+
+                @if(Route::has('petugas.kegiatan.index'))
+                    <a href="{{ route('petugas.kegiatan.index') }}" class="quick-action-btn">
+                        <i class="bi bi-folder2-open text-primary fs-5"></i>
+                        <span>Lihat Semua Kegiatan</span>
+                    </a>
+                @endif
+            </div>
+
+            {{-- WIDGET AKTIVITAS KEGIATAN TERAKHIR --}}
+            <div class="sidebar-widget-card">
+                <div class="widget-title">
+                    <i class="bi bi-activity text-info"></i> Aktivitas Terakhir
                 </div>
 
                 @if(isset($recentActivities) && count($recentActivities) > 0)
@@ -715,12 +802,12 @@ main > h2,
                         @endforeach
                     </ul>
                 @else
-                    <div class="empty-activity">
-                        Belum ada riwayat aktivitas folder.
+                    <div class="text-center py-4 text-muted" style="font-size: 11px;">
+                        <i class="bi bi-clock-history d-block mb-1 fs-4 text-secondary"></i>
+                        Belum ada riwayat aktivitas.
                     </div>
                 @endif
             </div>
-
         </div>
 
     </div>

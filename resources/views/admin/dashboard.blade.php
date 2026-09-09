@@ -150,6 +150,17 @@
         display: inline-block;
         box-shadow: 0 0 0 2px #ffffff, 0 0 8px #22c55e;
     }
+
+    /* Custom Style untuk Icon Fitur */
+    .feature-icon-box {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+    }
 </style>
 
 <div class="container-fluid pb-5 pt-3">
@@ -194,90 +205,174 @@
         </div>
     </div>
 
-    <!-- 2. METRICS STATISTIK DINAMIS -->
-    <div class="row g-3 mb-4">
-        <!-- Total Petugas -->
-        <div class="col-xl-2 col-md-4 col-6">
-            <div class="toska-card toska-card-hover p-3 h-100">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <span class="fw-bold small" style="color: #475569;">PETUGAS</span>
-                    <div class="p-2 rounded-3" style="background: #f3e8ff;">
-                        <i class="bi bi-people-fill fs-5" style="color: #7c3aed;"></i>
-                    </div>
-                </div>
-                <h2 class="fw-bold mb-0" style="color: #0f172a;">{{ $totalPetugas ?? 0 }}</h2>
-                <span class="fw-semibold" style="font-size: 12px; color: #64748b;">Pengguna Aktif</span>
+    <!-- PENJELASAN FITUR UTAMA DASHBOARD -->
+    <div class="toska-card p-4 mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
+            <div>
+                <h6 class="fw-bold mb-1" style="color: #0f172a; font-size: 16px;">
+                    <i class="bi bi-grid-fill me-2" style="color: var(--toska-primary);"></i>Panduan Fitur Dashboard
+                </h6>
+                <small style="color: #64748b;">Ringkasan fungsi dan modul yang dapat digunakan dalam sistem SIPEDOK.</small>
             </div>
+            <span class="badge-toska"><i class="bi bi-info-circle me-1"></i> Pusat Bantuan</span>
         </div>
 
-        <!-- Total Kegiatan -->
-        <div class="col-xl-2 col-md-4 col-6">
-            <div class="toska-card toska-card-hover p-3 h-100">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <span class="fw-bold small" style="color: #475569;">KEGIATAN</span>
-                    <div class="p-2 rounded-3" style="background: var(--toska-subtle);">
-                        <i class="bi bi-calendar-event-fill fs-5" style="color: var(--toska-dark);"></i>
+        <div class="row g-3">
+            <!-- Fitur 1 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="p-3 border rounded-3 bg-light h-100 d-flex align-items-start">
+                    <div class="feature-icon-box me-3 text-white" style="background: var(--toska-dark);">
+                        <i class="bi bi-speedometer2"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold text-dark mb-1" style="font-size: 14px;">Statistik & Ringkasan Berkas</h6>
+                        <p class="small text-muted mb-0">Memantau jumlah total petugas, kegiatan liputan, folder, serta berkas foto dan video secara terpusat.</p>
                     </div>
                 </div>
-                <h2 class="fw-bold mb-0" style="color: #0f172a;">{{ $totalKegiatan ?? 0 }}</h2>
-                <span class="fw-semibold" style="font-size: 12px; color: #64748b;">Agenda Liputan</span>
             </div>
-        </div>
 
-        <!-- Total Folder -->
-        <div class="col-xl-2 col-md-4 col-6">
-            <div class="toska-card toska-card-hover p-3 h-100">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <span class="fw-bold small" style="color: #475569;">FOLDER</span>
-                    <div class="p-2 rounded-3" style="background: #fef3c7;">
-                        <i class="bi bi-folder-fill fs-5 text-warning"></i>
+            <!-- Fitur 2 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="p-3 border rounded-3 bg-light h-100 d-flex align-items-start">
+                    <div class="feature-icon-box me-3 bg-primary text-white">
+                        <i class="bi bi-bar-chart-line"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold text-dark mb-1" style="font-size: 14px;">Analistik & Grafik Media</h6>
+                        <p class="small text-muted mb-0">Visualisasi grafis aktivitas unggahan bulanan dan komparasi persentase antara berkas foto dan video.</p>
                     </div>
                 </div>
-                <h2 class="fw-bold mb-0" style="color: #0f172a;">{{ $totalFolder ?? 0 }}</h2>
-                <span class="fw-semibold" style="font-size: 12px; color: #64748b;">Direktori File</span>
             </div>
-        </div>
 
-        <!-- Total Foto -->
-        <div class="col-xl-2 col-md-4 col-6">
-            <div class="toska-card toska-card-hover p-3 h-100">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <span class="fw-bold small" style="color: #475569;">FOTO</span>
-                    <div class="p-2 rounded-3" style="background: #ffe4e6;">
-                        <i class="bi bi-image-fill fs-5 text-danger"></i>
+            <!-- Fitur 3 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="p-3 border rounded-3 bg-light h-100 d-flex align-items-start">
+                    <div class="feature-icon-box me-3 bg-warning text-dark">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold text-dark mb-1" style="font-size: 14px;">Monitoring Agenda Kegiatan</h6>
+                        <p class="small text-muted mb-0">Melihat daftar kegiatan liputan terbaru, status pengerjaan (Pending/Proses/Selesai), serta petugas penanggung jawab.</p>
                     </div>
                 </div>
-                <h2 class="fw-bold mb-0" style="color: #0f172a;">{{ $totalFoto ?? 0 }}</h2>
-                <span class="fw-semibold" style="font-size: 12px; color: #64748b;">Berkas Gambar</span>
             </div>
-        </div>
 
-        <!-- Total Video -->
-        <div class="col-xl-2 col-md-4 col-6">
-            <div class="toska-card toska-card-hover p-3 h-100">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <span class="fw-bold small" style="color: #475569;">VIDEO</span>
-                    <div class="p-2 rounded-3" style="background: #e0f2fe;">
-                        <i class="bi bi-camera-video-fill fs-5" style="color: #0284c7;"></i>
+            <!-- Fitur 4 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="p-3 border rounded-3 bg-light h-100 d-flex align-items-start">
+                    <div class="feature-icon-box me-3 bg-purple text-purple" style="background: #f3e8ff; color: #6b21a8;">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold text-dark mb-1" style="font-size: 14px;">Manajemen Petugas</h6>
+                        <p class="small text-muted mb-0">Pengelolaan data pengguna sistem, pembagian tugas liputan, serta hak akses untuk petugas dan staf.</p>
                     </div>
                 </div>
-                <h2 class="fw-bold mb-0" style="color: #0f172a;">{{ $totalVideo ?? 0 }}</h2>
-                <span class="fw-semibold" style="font-size: 12px; color: #64748b;">Rekaman Video</span>
             </div>
-        </div>
 
-        <!-- Progress Upload -->
-        <div class="col-xl-2 col-md-4 col-6">
-            <div class="toska-card toska-card-hover p-3 h-100" style="border-left: 4px solid var(--toska-primary) !important;">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <span class="fw-bold small" style="color: #475569;">PROGRES</span>
-                    <i class="bi bi-arrow-repeat fs-5" style="color: var(--toska-primary);"></i>
+            <!-- Fitur 5 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="p-3 border rounded-3 bg-light h-100 d-flex align-items-start">
+                    <div class="feature-icon-box me-3 bg-danger text-white">
+                        <i class="bi bi-folder-symlink"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold text-dark mb-1" style="font-size: 14px;">Manajemen Direktori Folder</h6>
+                        <p class="small text-muted mb-0">Pengelompokan dokumentasi media berdasarkan kategori kegiatan agar terstruktur dan mudah dicari.</p>
+                    </div>
                 </div>
-                <h2 class="fw-bold mb-0" style="color: var(--toska-dark);">{{ $progres ?? 0 }}%</h2>
-                <span class="fw-semibold" style="font-size: 12px; color: #64748b;">Upload Selesai</span>
+            </div>
+
+            <!-- Fitur 6 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="p-3 border rounded-3 bg-light h-100 d-flex align-items-start">
+                    <div class="feature-icon-box me-3 bg-success text-white">
+                        <i class="bi bi-broadcast"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold text-dark mb-1" style="font-size: 14px;">Aktivitas Tim Real-Time</h6>
+                        <p class="small text-muted mb-0">Memantau status login (online/offline) anggota tim serta catatan aktivitas (log) terakhir yang dilakukan.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+<!-- 2. METRICS STATISTIK DINAMIS -->
+<div class="row g-3 mb-4">
+    <!-- Total Petugas -->
+    <div class="col-xl col-md-4 col-6">
+        <div class="toska-card toska-card-hover p-3 h-100">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="fw-bold small" style="color: #475569;">PETUGAS</span>
+                <div class="p-2 rounded-3" style="background: #f3e8ff;">
+                    <i class="bi bi-people-fill fs-5" style="color: #7c3aed;"></i>
+                </div>
+            </div>
+            <h2 class="fw-bold mb-0" style="color: #0f172a;">{{ $totalPetugas ?? 0 }}</h2>
+            <span class="fw-semibold" style="font-size: 12px; color: #64748b;">Pengguna Aktif</span>
+        </div>
+    </div>
+
+    <!-- Total Kegiatan -->
+    <div class="col-xl col-md-4 col-6">
+        <div class="toska-card toska-card-hover p-3 h-100">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="fw-bold small" style="color: #475569;">KEGIATAN</span>
+                <div class="p-2 rounded-3" style="background: var(--toska-subtle);">
+                    <i class="bi bi-calendar-event-fill fs-5" style="color: var(--toska-dark);"></i>
+                </div>
+            </div>
+            <h2 class="fw-bold mb-0" style="color: #0f172a;">{{ $totalKegiatan ?? 0 }}</h2>
+            <span class="fw-semibold" style="font-size: 12px; color: #64748b;">Agenda Liputan</span>
+        </div>
+    </div>
+
+    <!-- Total Folder -->
+    <div class="col-xl col-md-4 col-6">
+        <div class="toska-card toska-card-hover p-3 h-100">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="fw-bold small" style="color: #475569;">FOLDER</span>
+                <div class="p-2 rounded-3" style="background: #fef3c7;">
+                    <i class="bi bi-folder-fill fs-5 text-warning"></i>
+                </div>
+            </div>
+            <h2 class="fw-bold mb-0" style="color: #0f172a;">{{ $totalFolder ?? 0 }}</h2>
+            <span class="fw-semibold" style="font-size: 12px; color: #64748b;">Direktori File</span>
+        </div>
+    </div>
+
+    <!-- Total Foto -->
+    <div class="col-xl col-md-4 col-6">
+        <div class="toska-card toska-card-hover p-3 h-100">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="fw-bold small" style="color: #475569;">FOTO</span>
+                <div class="p-2 rounded-3" style="background: #ffe4e6;">
+                    <i class="bi bi-image-fill fs-5 text-danger"></i>
+                </div>
+            </div>
+            <h2 class="fw-bold mb-0" style="color: #0f172a;">{{ $totalFoto ?? 0 }}</h2>
+            <span class="fw-semibold" style="font-size: 12px; color: #64748b;">Berkas Gambar</span>
+        </div>
+    </div>
+
+    <!-- Total Video -->
+    <div class="col-xl col-md-4 col-6">
+        <div class="toska-card toska-card-hover p-3 h-100">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="fw-bold small" style="color: #475569;">VIDEO</span>
+                <div class="p-2 rounded-3" style="background: #e0f2fe;">
+                    <i class="bi bi-camera-video-fill fs-5" style="color: #0284c7;"></i>
+                </div>
+            </div>
+            <h2 class="fw-bold mb-0" style="color: #0f172a;">{{ $totalVideo ?? 0 }}</h2>
+            <span class="fw-semibold" style="font-size: 12px; color: #64748b;">Rekaman Video</span>
+        </div>
+    </div>
+</div>
+
+        <!-- Progress Upload -->
+       
 
     <!-- 3. GRAFIK ANALISTIK -->
     <div class="row g-4 mb-4">
@@ -315,84 +410,80 @@
         </div>
     </div>
 
-    <!-- 4. MONITORING KEGIATAN TERBARU & SIDEBAR -->
-    <div class="row g-4 mb-4">
-        <!-- Tabel Kegiatan Terbaru Dinamis -->
-        <div class="col-lg-8">
-            <div class="toska-card h-100">
-                <div class="p-3 border-bottom d-flex justify-content-between align-items-center bg-white" style="border-radius: 16px 16px 0 0;">
-                    <h6 class="fw-bold mb-0" style="color: #0f172a; font-size: 16px;">
-                        <i class="bi bi-calendar-check-fill me-2" style="color: var(--toska-primary);"></i>Monitoring Kegiatan Terbaru
-                    </h6>
-                    <a href="{{ route('admin.kegiatan.index') }}" class="btn btn-sm btn-outline-success rounded-pill fw-bold" style="font-size: 12px;">
-                        Lihat Semua Kegiatan <i class="bi bi-arrow-right ms-1"></i>
-                    </a>
+   <!-- 4. MONITORING KEGIATAN TERBARU & SIDEBAR -->
+<div class="row g-4 mb-4">
+    <!-- TABEL MONITORING KEGIATAN TERBARU (TANPA KOLOM STATUS) -->
+    <div class="col-lg-8">
+        <div class="toska-card h-100">
+            <div class="p-3 border-bottom d-flex justify-content-between align-items-center bg-white" style="border-radius: 16px 16px 0 0;">
+                <h6 class="fw-bold mb-0" style="color: #0f172a; font-size: 16px;">
+                    <i class="bi bi-calendar-check-fill me-2" style="color: var(--toska-primary);"></i>Monitoring Kegiatan Terbaru
+                </h6>
+                <a href="{{ route('admin.kegiatan.index') }}" class="btn btn-sm btn-outline-success rounded-pill fw-bold" style="font-size: 12px;">
+                    Lihat Semua Kegiatan <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover table-toska align-middle mb-0" style="font-size: 14px;">
+                        <thead>
+                            <tr>
+                                <th class="ps-4 py-3">NAMA KEGIATAN</th>
+                                <th>PETUGAS LAPANGAN</th>
+                                <th>FOLDER</th>
+                                <th class="text-center">DETAIL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+    @forelse($kegiatanTerbaru ?? [] as $kegiatan)
+    @php
+        // Mengambil nama petugas dari user folder pertama yang mengunggah berkas, atau fallback ke createdBy
+        $petugasUploader = $kegiatan->folder->user->name 
+                        ?? $kegiatan->createdBy->name 
+                        ?? 'Belum Ada Upload';
+    @endphp
+    <tr>
+        <td class="ps-4 py-3">
+            <div class="fw-bold" style="color: #0f172a;">{{ $kegiatan->nama_kegiatan }}</div>
+            <small style="color: #64748b;">
+                <i class="bi bi-calendar3 me-1"></i>{{ $kegiatan->tanggal_kegiatan ? \Carbon\Carbon::parse($kegiatan->tanggal_kegiatan)->format('d M Y') : '-' }}
+            </small>
+        </td>
+        <td>
+            <div class="d-flex align-items-center">
+                <div class="rounded-circle me-2 d-flex align-items-center justify-content-center text-white fw-bold" style="width: 28px; height: 28px; background: var(--toska-dark); font-size: 12px;">
+                    {{ strtoupper(substr($petugasUploader, 0, 1)) }}
                 </div>
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-hover table-toska align-middle mb-0" style="font-size: 14px;">
-                            <thead>
-                                <tr>
-                                    <th class="ps-4 py-3">NAMA KEGIATAN</th>
-                                    <th>PETUGAS LAPANGAN</th>
-                                    <th>FOLDER</th>
-                                    <th>STATUS</th>
-                                    <th class="text-center">DETAIL</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($kegiatanTerbaru ?? [] as $kegiatan)
-                                <tr>
-                                    <td class="ps-4 py-3">
-                                        <div class="fw-bold" style="color: #0f172a;">{{ $kegiatan->nama_kegiatan }}</div>
-                                        <small style="color: #64748b;">
-                                            <i class="bi bi-calendar3 me-1"></i>{{ $kegiatan->tanggal ? \Carbon\Carbon::parse($kegiatan->tanggal)->format('d M Y') : '-' }}
-                                        </small>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="rounded-circle me-2 d-flex align-items-center justify-content-center text-white fw-bold" style="width: 28px; height: 28px; background: var(--toska-dark); font-size: 12px;">
-                                                {{ strtoupper(substr($kegiatan->petugas->name ?? 'P', 0, 1)) }}
-                                            </div>
-                                            <span class="fw-semibold" style="color: #334155;">{{ $kegiatan->petugas->name ?? 'Belum Ditugaskan' }}</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        @if(($kegiatan->folders_count ?? 0) > 0)
-                                            <span class="badge-toska"><i class="bi bi-folder-check me-1"></i> {{ $kegiatan->folders_count }} Folder</span>
-                                        @else
-                                            <span class="badge-rose"><i class="bi bi-folder-x me-1"></i> Belum Ada Folder</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if(($kegiatan->status ?? '') == 'selesai')
-                                            <span class="badge-toska"><i class="bi bi-check-circle-fill me-1"></i> Selesai</span>
-                                        @elseif(($kegiatan->status ?? '') == 'proses')
-                                            <span class="badge-amber"><i class="bi bi-hourglass-split me-1"></i> Proses</span>
-                                        @else
-                                            <span class="badge-cyan"><i class="bi bi-clock me-1"></i> Pending</span>
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="{{ route('admin.kegiatan.show', $kegiatan->id) }}" class="btn btn-sm btn-light border text-dark fw-bold rounded-pill px-3">
-                                            <i class="bi bi-eye text-primary me-1"></i> Lihat
-                                        </a>
-                                    </td>
-                                </tr>
-                                @empty
-                                <tr>
-                                    <td colspan="5" class="text-center py-4 text-muted">
-                                        <i class="bi bi-inbox fs-3 d-block mb-2"></i>
-                                        Belum ada data kegiatan terbaru.
-                                    </td>
-                                </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
+                <span class="fw-semibold" style="color: #334155;">{{ $petugasUploader }}</span>
+            </div>
+        </td>
+        <td>
+            @if(($kegiatan->folders_count ?? ($kegiatan->folder ? 1 : 0)) > 0)
+                <span class="badge-toska"><i class="bi bi-folder-check me-1"></i> {{ $kegiatan->folders_count ?? 1 }} Folder</span>
+            @else
+                <span class="badge-rose"><i class="bi bi-folder-x me-1"></i> Folder</span>
+            @endif
+        </td>
+        <td class="text-center">
+            <a href="{{ route('admin.kegiatan.show', $kegiatan->id) }}" class="btn btn-sm btn-light border text-dark fw-bold rounded-pill px-3">
+                <i class="bi bi-eye text-primary me-1"></i> Lihat
+            </a>
+        </td>
+    </tr>
+    @empty
+    <tr>
+        <td colspan="4" class="text-center py-4 text-muted">
+            <i class="bi bi-inbox fs-3 d-block mb-2"></i>
+            Belum ada data kegiatan terbaru.
+        </td>
+    </tr>
+    @endforelse
+</tbody>
+                    </table>
                 </div>
             </div>
         </div>
+    </div>
 
         <!-- Sidebar: Folder Terbaru & Aktivitas Hari Ini -->
         <div class="col-lg-4">
@@ -482,12 +573,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($recentActivities as $log)
+                    @forelse($recentActivities ?? [] as $log)
                         @php
-                            // Logika deteksi Online (Aktif jika aktivitas terjadi dalam 5 menit terakhir)
                             $isOnline = $log->created_at ? \Carbon\Carbon::parse($log->created_at)->gt(\Carbon\Carbon::now('Asia/Jakarta')->subMinutes(5)) : false;
-                            
-                            // Menangani variasi penamaan kolom deskripsi aktivitas agar tidak error
                             $deskripsiAktivitas = $log->description ?? $log->activity ?? $log->aktivitas ?? $log->keterangan ?? 'Melakukan aktivitas sistem';
                         @endphp
                         <tr>
@@ -530,8 +618,7 @@
                             </td>
                         </tr>
                     @empty
-                        <!-- Jika tabel ActivityLog masih kosong, tampilkan daftar User biasa -->
-                        @forelse($userStatusList as $user)
+                        @forelse($userStatusList ?? [] as $user)
                             <tr>
                                 <td class="ps-3 py-3">
                                     <div class="d-flex align-items-center">
@@ -549,34 +636,15 @@
                                         {{ ucfirst($user->role) }}
                                     </span>
                                 </td>
-                                <td>
-                                    @if($user->is_online)
-                                        <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2 py-1 fw-bold" style="font-size: 12px;">
-                                            <span class="online-indicator me-1"></span> Online
-                                        </span>
-                                    @else
-                                        <span class="badge bg-secondary-subtle text-secondary border rounded-pill px-2 py-1 fw-bold" style="font-size: 12px;">
-                                            Offline
-                                        </span>
-                                    @endif
-                                </td>
-                                <td>
-                                    <span class="text-muted fs-7">Login ke sistem</span>
-                                </td>
-                                <!-- BARIS 357-365 PERBAIKAN TIMEZONE & CONDITIONAL -->
-                                <td class="text-end pe-3" style="color: #64748b; font-weight: 500;">
-                                    @if(isset($user->updated_at))
-                                        {{ \Carbon\Carbon::parse($user->updated_at)->locale('id')->settings(['timezone' => 'Asia/Jakarta'])->diffForHumans() }}
-                                    @else
-                                        -
-                                    @endif
-                                </td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td class="text-end pe-3">-</td>
                             </tr>
                         @empty
                             <tr>
                                 <td colspan="5" class="text-center py-4 text-muted">
-                                    <i class="bi bi-person-slash fs-3 d-block mb-2"></i>
-                                    Belum ada data pengguna atau log aktivitas.
+                                    <i class="bi bi-people fs-3 d-block mb-2"></i>
+                                    Belum ada aktivitas tim tercatat.
                                 </td>
                             </tr>
                         @endforelse
@@ -585,18 +653,6 @@
             </table>
         </div>
     </div>
-
-    <!-- 6. FOOTER -->
-    <footer class="mt-5 pt-3 border-top text-center small" style="color: #64748b;">
-        <div class="d-flex justify-content-between align-items-center flex-column flex-sm-row">
-            <div>
-                <strong style="color: var(--toska-dark);">SIPEDOK</strong> — Sistem Informasi Pengelolaan Dokumentasi
-            </div>
-            <div class="mt-2 mt-sm-0">
-                &copy; {{ date('Y') }} <strong>Dinas Komunikasi dan Informatika Kabupaten Pringsewu</strong>
-            </div>
-        </div>
-    </footer>
 
 </div>
 @endsection
@@ -638,17 +694,15 @@
         });
     }
 
-    // 2. Pie/Donut Chart (Proporsi Foto vs Video Dinamis)
+    // 2. Pie Chart (Proporsi Foto vs Video)
     const ctxPie = document.getElementById('pieChartMedia');
     if(ctxPie){
-        const totalFoto = {{ $totalFoto ?? 0 }};
-        const totalVideo = {{ $totalVideo ?? 0 }};
         new Chart(ctxPie, {
             type: 'doughnut',
             data: {
                 labels: ['Foto', 'Video'],
                 datasets: [{
-                    data: [totalFoto, totalVideo],
+                    data: [{{ $totalFoto ?? 0 }}, {{ $totalVideo ?? 0 }}],
                     backgroundColor: ['#e11d48', '#0284c7'],
                     borderWidth: 2,
                     borderColor: '#ffffff'
@@ -659,7 +713,8 @@
                 maintainAspectRatio: false,
                 plugins: {
                     legend: { display: false }
-                }
+                },
+                cutout: '70%'
             }
         });
     }

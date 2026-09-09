@@ -29,14 +29,43 @@
                                     <div class="mb-2">
                                         📄 <strong>{{ $file->nama_file }}</strong>
                                     </div>
-                                    <a href="{{ asset('storage/' . $file->path_file) }}" target="_blank" class="btn btn-sm btn-outline-info mb-3">
-                                        👁 Preview File
-                                    </a>
+                                    <div class="d-flex justify-content-center gap-2 mb-3">
+                                        <a href="{{ asset('storage/' . $file->path_file) }}" target="_blank" class="btn btn-sm btn-outline-info">
+                                            👁 Preview File
+                                        </a>
+                                        <!-- Penambahan Fitur Hapus -->
+                                        <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalHapus{{ $file->id }}">
+                                            🗑️ Hapus
+                                        </button>
+                                    </div>
                                     <div class="form-check d-flex justify-content-center">
                                         <input class="form-check-input me-2" type="checkbox" name="selected_files[]" value="{{ $file->id }}" id="file_{{ $file->id }}" {{ $file->status == 'dipilih' ? 'checked' : '' }}>
                                         <label class="form-check-label fw-bold" for="file_{{ $file->id }}">
                                             Pilih untuk Edit
                                         </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal Konfirmasi Hapus (Ditaruh di dalam loop agar id unik) -->
+                        <div class="modal fade" id="modalHapus{{ $file->id }}" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Hapus Berkas</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-start">
+                                        Apakah Anda yakin ingin menghapus file <strong>{{ $file->nama_file }}</strong>?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Batal</button>
+                                        <form action="{{ route('pimpinan.kurasi.destroy', [$disposisi->token, $file->id]) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">Ya, Hapus</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -56,5 +85,8 @@
         </div>
     </div>
 </div>
+
+<!-- Script Bootstrap ditambahkan di bawah agar Modal Hapus dapat berfungsi -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
